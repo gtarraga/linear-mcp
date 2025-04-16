@@ -1,7 +1,7 @@
-import type { LinearClient } from '@linear/sdk'
-import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js'
-import type { ZodRawShape, ZodTypeAny } from 'zod'
-import { z } from 'zod'
+import type { LinearClient } from "@linear/sdk";
+import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
+import type { ZodRawShape, ZodTypeAny } from "zod";
+import { z } from "zod";
 
 export function tool<Args extends undefined | ZodRawShape = undefined>({
   name,
@@ -9,18 +9,18 @@ export function tool<Args extends undefined | ZodRawShape = undefined>({
   params = {},
   execute,
 }: {
-  name: string
-  description: string
-  params?: Args
+  name: string;
+  description: string;
+  params?: Args;
   execute: (
     client: LinearClient,
     args: Args extends ZodRawShape ? z.objectOutputType<Args, ZodTypeAny> : undefined,
-  ) => CallToolResult | Promise<CallToolResult>
+  ) => CallToolResult | Promise<CallToolResult>;
 }) {
-  return { name, description, params, execute }
+  return { name, description, params, execute };
 }
 
-export type Tool = ReturnType<typeof tool>
+export type Tool = ReturnType<typeof tool>;
 
 // export declare type NullableTimelessDateComparator = {
 //     /** Equals constraint. */
@@ -53,7 +53,7 @@ export const DateComparatorSchema = z.object({
   lte: z.string().nullish(),
   nin: z.array(z.string()).nullish(),
   null: z.boolean().nullish(),
-})
+});
 
 export const StringComparatorSchema = z.object({
   contains: z.string().nullish(),
@@ -72,14 +72,14 @@ export const StringComparatorSchema = z.object({
   notStartsWith: z.string().nullish(),
   startsWith: z.string().nullish(),
   startsWithIgnoreCase: z.string().nullish(),
-})
+});
 
 export const IdComparatorSchema = z.object({
   eq: z.string().optional(),
   ne: z.string().optional(),
   in: z.array(z.string()).optional(),
   nin: z.array(z.string()).optional(),
-})
+});
 
 export const NumberComparatorSchema = z.object({
   eq: z.number().nullish(),
@@ -91,4 +91,4 @@ export const NumberComparatorSchema = z.object({
   in: z.array(z.number()).nullish(),
   nin: z.array(z.number()).nullish(),
   null: z.boolean().nullish(),
-})
+});
